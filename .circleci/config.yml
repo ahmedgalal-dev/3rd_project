@@ -94,7 +94,7 @@ workflows:
             - deploy_frontend:
                 requires:
                     - build_frontend
-            - buid_backend
+            - build_backend
             - deploy_backend:
                 requires:
                     - build_backend

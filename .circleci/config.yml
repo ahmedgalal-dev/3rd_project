@@ -1,0 +1,100 @@
+version: 2.1
+orbs:
+    node: circleci/node@4.1.0
+    aws-cli: circleci/aws-cli@1.3.1
+jobs:
+    build_deployy:
+        docker:
+            - image: cimg/base:stable
+        working_directory: ~/root
+        steps:
+            - checkout
+            - node/install
+            - aws-cli/setup
+            - run: ls
+            - run:
+                name: Front End Building
+                command: | 
+                    npm run frontend:build
+            
+            - run: mkdir build2
+            - run: cd front-end/&&ls
+            - run:
+                name: Front End Deploying
+                command: |
+                    npm run frontend:deploy
+    build_frontend:
+        docker:
+            - image: cimg/base:stable
+        working_directory: ~/root
+        steps:
+            - checkout
+            - node/install
+            - run:
+                name: Build frontend
+                command:    |
+                    npm run frontend:build
+            - run: mkdir -p workspace/front-end
+            - run: cp -R front-end/build workspace/front-end && cd workspace/front-end && ls 
+            - persist_to_workspace:
+                root: workspace/front-end
+                paths: build/*
+    build_backend:
+        docker:
+            - image: cimg/base:stable
+        working_directory: ~/root
+        steps:
+            - checkout
+            - node/install
+            - run:
+                name: Back End Building
+                command: |
+                    npm run backend:build
+            - persist_to_workspace:
+                root: express-api/
+                paths: build/*
+    
+    deploy_frontend:
+        docker:
+            - image: cimg/base:stable
+        working_directory: ~/root
+        steps:
+            - checkout
+            - node/install
+            - aws-cli/setup
+            
+            - attach_workspace:
+                at: ./workspace/front-end
+            - run: cp -R workspace/front-end/build front-end/
+            - run: cd front-end && ls
+            - run:
+                name: Frontend deployment to AWS-S3
+                command: |
+                    npm run frontend:deploy
+    deploy_backend:
+        docker:
+            - image: cimg/base:stable
+        working_directory: ~/root
+        steps:
+            - checkout
+            - node/install
+            - aws-cli/setup
+            - run: cd express-api && ls
+            - attach_to_workspace:
+                at: express-api/build
+            - run:
+                name: Backend deploying to Amazon-Elasticbeanstalk 
+                command: |
+                    npm run backend:deploy
+workflows:
+    version: 2
+    fullapp:
+        jobs:
+            - build_frontend
+            - deploy_frontend:
+                requires:
+                    - build_frontend
+            - buid_backend
+            - deploy_backend:
+                requires:
+                    - build_backend

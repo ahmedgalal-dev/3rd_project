@@ -1,0 +1,8 @@
+{
+    "scripts": {
+        "frontend:build":"cd front-end && npm run build",
+        "frontend:deploy":"cd front-end && npm run deploy",
+        "backend:build":"cd express-api && npm run build",
+        "backend:deploy":"cd express-api && npm run deploy"
+    }
+}

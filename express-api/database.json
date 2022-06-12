@@ -1,0 +1,16 @@
+{
+    "dev": {
+      "driver": "pg",
+      "host": "deployment-project-db.ct3a16ptw1m2.us-east-1.rds.amazonaws.com",
+      "database": "postgres",
+      "user": "postgres",
+      "password": "postgresadmin"
+    },
+    "test": {
+      "driver": "pg",
+      "host": "127.0.0.1",
+      "database": "deployment_project_db_test",
+      "user": "ahmed",
+      "password": "ahmed/admin"
+    }
+  }

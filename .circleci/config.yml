@@ -87,7 +87,7 @@ jobs:
                 command: |
                     npm run backend:deploy
 workflows:
-    version: 2
+    version: 2.1
     fullapp:
         jobs:
             - build_frontend

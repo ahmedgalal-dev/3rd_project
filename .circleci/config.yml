@@ -80,7 +80,7 @@ jobs:
             - node/install
             - aws-cli/setup
             - run: cd express-api && ls
-            - attach_to_workspace:
+            - attach_workspace:
                 at: express-api/build
             - run:
                 name: Backend deploying to Amazon-Elasticbeanstalk 
@@ -94,7 +94,7 @@ workflows:
             - deploy_frontend:
                 requires:
                     - build_frontend
-            - buid_backend
+            - build_backend
             - deploy_backend:
                 requires:
                     - build_backend

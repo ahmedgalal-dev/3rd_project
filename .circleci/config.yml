@@ -63,7 +63,6 @@ jobs:
             - checkout
             - node/install
             - aws-cli/setup
-            - eb/setup
             - attach_workspace:
                 at: ./workspace/front-end
             - run: cp -R workspace/front-end/build front-end/
@@ -80,6 +79,7 @@ jobs:
             - checkout
             - node/install
             - aws-cli/setup
+            - eb/setup
             - run: cd express-api && ls
             - attach_workspace:
                 at: express-api/build

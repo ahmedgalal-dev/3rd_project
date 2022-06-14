@@ -4,26 +4,6 @@ orbs:
     aws-cli: circleci/aws-cli@1.3.1
     eb: circleci/aws-elastic-beanstalk@2.0.1
 jobs:
-    build_deployy:
-        docker:
-            - image: cimg/base:stable
-        working_directory: ~/root
-        steps:
-            - checkout
-            - node/install
-            - aws-cli/setup
-            - run: ls
-            - run:
-                name: Front End Building
-                command: | 
-                    npm run frontend:build
-            
-            - run: mkdir build2
-            - run: cd front-end/&&ls
-            - run:
-                name: Front End Deploying
-                command: |
-                    npm run frontend:deploy
     build_frontend:
         docker:
             - image: cimg/base:stable
@@ -89,7 +69,7 @@ jobs:
                     npm run backend:deploy
 workflows:
     version: 2.1
-    fullapp:
+    deploy_full_app:
         jobs:
             - build_frontend
             - deploy_frontend:

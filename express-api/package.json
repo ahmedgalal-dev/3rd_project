@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "build": "npm install && npx tsc && cp package.json ./build/ && mkdir ./build/.elasticbeanstalk/ && cp -R .elasticbeanstalk ./build/",
+    "build": "npm install && npx tsc && cp package.json ./build/ && mkdir ./build/.elasticbeanstalk/ && cp -R .elasticbeanstalk/ ./build/",
     "start": "node ./server.js",
     "deploy":"cd build && eb deploy",
     "run-dev": "ts-node-dev --respawn -- src/index.ts",

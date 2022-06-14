@@ -63,7 +63,7 @@ jobs:
             - eb/setup
             - attach_workspace:
                 at: workspace/back-end
-            - run: cp -R workspace/back-end/build express-api/build
+            - run: cp -R workspace/back-end/build express-api/
             - run: cd express-api/build/ && ls
             - run:
                 name: Backend deploying to Amazon-Elasticbeanstalk 

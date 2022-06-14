@@ -5,7 +5,7 @@ function App() {
   const submitString = useRef()
   const [mess,setMessages] = useState(<h4>no messages</h4>)
   function submit(){
-    fetch(`http://express-api-dev.eba-h2jpwbic.us-east-1.elasticbeanstalk.com//${messageRef.current.value}`,{
+    fetch(`http://express-api-dev.eba-h2jpwbic.us-east-1.elasticbeanstalk.com/${messageRef.current.value}`,{
       method:"POST",
     }).then((res)=>{
       res.json().then((val)=>{
@@ -16,7 +16,7 @@ function App() {
     })
   }
   function getMessages(){
-    fetch(`http://express-api-dev.eba-h2jpwbic.us-east-1.elasticbeanstalk.com//`,{
+    fetch(`http://express-api-dev.eba-h2jpwbic.us-east-1.elasticbeanstalk.com/`,{
       method:"GET"
     }).then((res)=>{
       res.json().then((val)=>{

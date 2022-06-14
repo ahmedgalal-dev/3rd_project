@@ -31,6 +31,7 @@ jobs:
                 name: Back End Building
                 command: |
                     npm run backend:build
+            - run: cd express-api/build/ && ls
             - run: mkdir -p workspace/back-end && cp -R express-api/build workspace/back-end
             - persist_to_workspace:
                 root: workspace/back-end

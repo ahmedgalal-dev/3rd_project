@@ -74,11 +74,15 @@ workflows:
     version: 2.1
     deploy_full_app:
         jobs:
-            - build_frontend
-            - deploy_frontend:
-                requires:
+            - when:
+                condition:
+                    equal: [ master, <<pipeline.git.branch>> ]
+                steps:  
                     - build_frontend
-            - build_backend
-            - deploy_backend:
-                requires:
+                    - deploy_frontend:
+                        requires:
+                            - build_frontend
                     - build_backend
+                    - deploy_backend:
+                        requires:
+                            - build_backend
